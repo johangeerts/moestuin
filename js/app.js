@@ -1,5 +1,5 @@
 /* =====================================================================
-   DE MOESTUIN — app-logica
+   DE MOESTUIN, app-logica
    Vereist js/data.js (DATA, GLY, gicon, SYN, resolve, byId, *_LABEL, MND)
    ===================================================================== */
 'use strict';
@@ -149,13 +149,13 @@ function renderSoorten(){
    ===================================================================== */
 function buildChecker(){
   const sel=document.getElementById('checkerSel');
-  sel.innerHTML='<option value="">— kies een soort —</option>'+DATA.map(p=>'<option value="'+p.id+'">'+p.naam+' ('+TYPE_LABEL[p.type]+')</option>').join('');
+  sel.innerHTML='<option value="">,  kies een soort , </option>'+DATA.map(p=>'<option value="'+p.id+'">'+p.naam+' ('+TYPE_LABEL[p.type]+')</option>').join('');
   sel.onchange=()=>{
     const p=byId(sel.value),out=document.getElementById('checkerOut');
     if(!p){out.classList.remove('show');return;}
     out.classList.add('show');
     document.getElementById('checkGood').innerHTML=p.vrienden.map(v=>chip(v,'good')).join('')||'<span class="chip good">geen bekend</span>';
-    document.getElementById('checkBad').innerHTML=p.vijanden.length?p.vijanden.map(v=>chip(v,'bad')).join(''):'<span class="chip good">geen — een gemakkelijke buur</span>';
+    document.getElementById('checkBad').innerHTML=p.vijanden.length?p.vijanden.map(v=>chip(v,'bad')).join(''):'<span class="chip good">geen, een gemakkelijke buur</span>';
     bindJumps(out);
   };
 }
@@ -172,9 +172,9 @@ function renderMaatjesTable(){
   let h='<div class="tablewrap"><table class="maatjes"><thead><tr><th>'+(isHerb?'Kruid / bloem':'Soort')+'</th><th>Goede buren</th>'+(isHerb?'<th>Werking in de tuin</th>':'<th>Liever niet samen</th>')+'</tr></thead><tbody>';
   rows.forEach(p=>{
     h+='<tr><td><div class="namecell t-'+p.type+'" data-jump="'+p.id+'"><span class="gly">'+gicon(p.fam)+'</span><span><span class="nm-n">'+p.naam+'</span><span class="nm-l">'+p.lat+'</span></span></div></td>';
-    h+='<td><div class="chips">'+p.vrienden.map(v=>chip(v,'good')).join('')+'</div></td>';
-    if(isHerb)h+='<td class="cell-work">'+p.tip+'</td>';
-    else h+='<td>'+(p.vijanden.length?'<div class="chips">'+p.vijanden.map(v=>chip(v,'bad')).join('')+'</div>':'<span class="cell-work">—</span>')+'</td>';
+    h+='<td class="lbl-good" data-label="Goede buren"><div class="chips">'+p.vrienden.map(v=>chip(v,'good')).join('')+'</div></td>';
+    if(isHerb)h+='<td class="cell-work lbl-gold" data-label="Werking in de tuin">'+p.tip+'</td>';
+    else h+='<td class="lbl-bad" data-label="Liever niet samen">'+(p.vijanden.length?'<div class="chips">'+p.vijanden.map(v=>chip(v,'bad')).join('')+'</div>':'<span class="cell-work">, </span>')+'</td>';
     h+='</tr>';
   });
   h+='</tbody></table></div>';
@@ -211,7 +211,7 @@ function renderPlanner(){
 }
 
 /* =====================================================================
-   MAANDWIJZER (wat zaai / plant / oogst ik in maand X) — puur uit de data
+   MAANDWIJZER (wat zaai / plant / oogst ik in maand X), puur uit de data
    ===================================================================== */
 let MAAND=CURM;
 function buildMonthSelect(){
@@ -279,7 +279,7 @@ function openDetail(id){
   if(p.oogst.length)cal+='<div class="m-cal-row"><span class="rl">Oogsten</span><div class="m-cal-strip">'+harvStrip(p.oogst)+'</div></div>';
   cal+='<div class="m-cal-months">'+MND.map((m,i)=>'<i class="'+(i+1===CURM?'now':'')+'">'+m[0]+'</i>').join('')+'</div></div>';
   const friends=p.vrienden.map(v=>chip(v,'good')).join('');
-  const foes=p.vijanden.length?p.vijanden.map(v=>chip(v,'bad')).join(''):'<span class="chip good">geen — makkelijke buur</span>';
+  const foes=p.vijanden.length?p.vijanden.map(v=>chip(v,'bad')).join(''):'<span class="chip good">geen, makkelijke buur</span>';
   const duur=p.duur?p.duur+' dagen tot oogst':'meerjarig';
   const sheet=document.getElementById('modalSheet');
   sheet.innerHTML=

@@ -273,4 +273,20 @@ table.calendar tbody tr:nth-child(even) .cal-name,table.calendar tbody tr:nth-ch
   .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px}
   .pcard{padding:13px} .pcard h3{font-size:1.04rem}
 }
+@media(max-width:640px){
+  /* maatjestabel wordt kaartjes onder elkaar: geen horizontaal scrollen meer */
+  .tablewrap{overflow:visible;border:none;background:transparent;box-shadow:none;border-radius:0}
+  table.maatjes{min-width:0;display:block}
+  table.maatjes thead{display:none}
+  table.maatjes tbody{display:block}
+  table.maatjes tr,table.maatjes tr:nth-child(even){display:block;background:var(--card);
+    border:1px solid var(--line-2);border-radius:var(--r);box-shadow:var(--shadow);padding:14px;margin-bottom:12px}
+  table.maatjes td,table.maatjes td:first-child{display:block;width:auto;padding:0;border:none}
+  table.maatjes td[data-label]{margin-top:12px}
+  table.maatjes td[data-label]::before{content:attr(data-label);display:block;font-size:.68rem;
+    letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);margin-bottom:6px}
+  table.maatjes td.lbl-good::before{color:var(--good)}
+  table.maatjes td.lbl-bad::before{color:var(--bad)}
+  table.maatjes td.lbl-gold::before{color:var(--gold)}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
