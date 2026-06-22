@@ -203,7 +203,7 @@ table.calendar tbody tr:nth-child(even) .cal-name,table.calendar tbody tr:nth-ch
 .modal.open{display:block}
 .modal .scrim{position:absolute;inset:0;background:rgba(30,40,30,.42);backdrop-filter:blur(2px);animation:fade .2s}
 .sheet{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(620px,94vw);max-height:90vh;
-  overflow-y:auto;background:var(--paper);border-radius:20px;box-shadow:0 24px 70px rgba(20,30,20,.4);animation:pop .22s ease}
+  max-height:90dvh;overflow-y:auto;overscroll-behavior:contain;background:var(--paper);border-radius:20px;box-shadow:0 24px 70px rgba(20,30,20,.4);animation:pop .22s ease}
 @keyframes pop{from{opacity:0;transform:translate(-50%,-46%) scale(.97)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 .sheet .hdr{position:sticky;top:0;background:var(--paper);padding:20px 22px 14px;border-bottom:1px solid var(--line);z-index:2}
 .sheet .close{position:absolute;right:14px;top:14px;width:36px;height:36px;border-radius:50%;background:var(--card);display:grid;place-items:center;box-shadow:var(--shadow)}
@@ -241,7 +241,7 @@ table.calendar tbody tr:nth-child(even) .cal-name,table.calendar tbody tr:nth-ch
 .calc .res{margin-top:10px;font-size:.95rem}
 .calc .res b{font-family:var(--display);font-size:1.3rem;color:var(--good)}
 .calc .hint{font-size:.78rem;color:var(--ink-soft);margin-top:6px}
-.m-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.m-actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 22px 22px}
 
 .toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--card);
   padding:12px 18px;border-radius:999px;font-weight:600;font-size:.9rem;box-shadow:0 10px 30px rgba(20,30,20,.4);
@@ -290,3 +290,15 @@ table.calendar tbody tr:nth-child(even) .cal-name,table.calendar tbody tr:nth-ch
   table.maatjes td.lbl-gold::before{color:var(--gold)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+@media(max-width:640px){
+  /* detailvenster schermvullend op de telefoon: knoppen blijven in beeld, geen verschuiven */
+  .sheet{position:absolute;inset:0;left:0;top:0;right:0;bottom:0;transform:none;width:100%;max-width:none;
+    height:100dvh;max-height:100dvh;border-radius:0;display:flex;flex-direction:column;overflow:hidden;animation:none}
+  .sheet .hdr{position:relative;flex:none;padding-top:calc(18px + env(safe-area-inset-top))}
+  .sheet .close{top:calc(14px + env(safe-area-inset-top))}
+  .sheet .body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+  .sheet .m-actions{flex:none;margin:0;padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+    background:var(--paper);border-top:1px solid var(--line)}
+  .sheet .m-actions .btn{flex:1}
+}

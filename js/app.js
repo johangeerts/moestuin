@@ -302,14 +302,25 @@ function openDetail(id){
     +'<div class="care-box">'+tiny(ICO.hand)+'<div><b>Verzorging.</b> '+p.zorg+'</div></div>'
     +successieNote(p)
     +spacingCalc(p)
-    +'<div class="m-actions"><button class="btn" data-addplan="'+p.id+'">'+tiny(ICO.cal)+'Zet in mijn kalender</button></div>'
-    +'</div>';
+    +'</div>'
+    +'<div class="m-actions"><button class="btn" data-addplan="'+p.id+'">'+tiny(ICO.cal)+'Zet in mijn kalender</button></div>';
   bindJumps(sheet);bindCalc(p);
   sheet.querySelector('[data-addplan]').onclick=()=>{if(!PLAN.includes(p.id)){PLAN.push(p.id);savePlan();}toast(p.naam+' staat in je kalender');};
   sheet.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModal);
-  modal.classList.add('open');document.body.style.overflow='hidden';
+  modal.classList.add('open');lockBody();
 }
-function closeModal(){modal.classList.remove('open');document.body.style.overflow='';}
+let _scrollY=0;
+function lockBody(){
+  _scrollY=window.scrollY;
+  const b=document.body.style;
+  b.position='fixed';b.top=(-_scrollY)+'px';b.left='0';b.right='0';b.width='100%';
+}
+function unlockBody(){
+  const b=document.body.style;
+  b.position='';b.top='';b.left='';b.right='';b.width='';
+  window.scrollTo(0,_scrollY);
+}
+function closeModal(){modal.classList.remove('open');unlockBody();}
 modal.querySelector('.scrim').onclick=closeModal;
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
