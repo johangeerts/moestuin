@@ -106,6 +106,7 @@ main{padding:clamp(18px,4vw,34px) 0 60px}
 .tag svg{width:12px;height:12px}
 .tag.kas{background:var(--sow-bg);color:#2d5f86;border-color:#c4dbeb}
 .tag.lucht{background:var(--good-bg);color:var(--good-ink);border-color:#cfe0bb}
+.tag.rassen-tag{background:var(--gold-bg);color:#7a5e1e;border-color:#e2d4ab}
 .pcard .mini-cal{display:flex;gap:2px;margin-top:2px}
 .mini-cal i{flex:1;height:5px;border-radius:2px;background:var(--line-2)}
 .mini-cal i.s{background:var(--sow)} .mini-cal i.p{background:var(--plant)} .mini-cal i.h{background:var(--harvest)}
@@ -235,8 +236,14 @@ table.calendar tbody tr:nth-child(even) .cal-name,table.calendar tbody tr:nth-ch
 .tip-box svg{width:18px;height:18px;color:var(--gold);flex:none;margin-top:1px}
 .care-box{background:var(--good-bg);border-radius:12px;padding:13px 15px;font-size:.92rem;display:flex;gap:10px;margin-top:10px}
 .care-box svg{width:18px;height:18px;color:var(--good);flex:none;margin-top:1px}
-.calc{background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:13px 15px}
-.calc .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.92rem}
+.rassen{display:flex;flex-direction:column;gap:8px}
+.ras{background:var(--card);border:1px solid var(--line-2);border-radius:11px;padding:10px 13px}
+.ras-h{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.ras-n{font-family:var(--display);font-weight:600;font-size:1.02rem}
+.ras-t{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--good);
+  background:var(--good-bg);border:1px solid #cfe0bb;padding:2px 8px;border-radius:999px}
+.ras-k{font-size:.85rem;color:var(--ink-soft);margin-top:4px;line-height:1.4}
+.calc{background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:13px 15px}.calc .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.92rem}
 .calc input{width:74px;padding:8px 10px;border:1.5px solid var(--line);background:var(--paper-2);border-radius:9px;text-align:center}
 .calc .res{margin-top:10px;font-size:.95rem}
 .calc .res b{font-family:var(--display);font-size:1.3rem;color:var(--good)}

@@ -124,16 +124,19 @@ function matchFilters(p){
   if(FILTERS.loc==='kas'&&!(p.loc==='kas'||p.loc==='beide'))return false;
   if(FILTERS.loc==='openlucht'&&!(p.loc==='openlucht'||p.loc==='beide'))return false;
   if(FILTERS.maand&&!activeMonths(p).includes(CURM))return false;
-  if(FILTERS.q){const q=FILTERS.q.toLowerCase();if(!(p.naam.toLowerCase().includes(q)||p.lat.toLowerCase().includes(q)))return false;}
+  if(FILTERS.q){const q=FILTERS.q.toLowerCase();
+    const inRas=(p.rassen||[]).some(r=>r.naam.toLowerCase().includes(q)||r.type.toLowerCase().includes(q));
+    if(!(p.naam.toLowerCase().includes(q)||p.lat.toLowerCase().includes(q)||inRas))return false;}
   return true;
 }
 function pcard(p){
   const locTag=p.loc==='kas'?'<span class="tag kas">'+tiny(ICO.kas)+'Kas</span>'
     :p.loc==='openlucht'?'<span class="tag lucht">'+tiny(ICO.sun)+'Buiten</span>'
     :'<span class="tag">'+tiny(ICO.kas)+'Kas of buiten</span>';
+  const rasTag=p.rassen&&p.rassen.length?'<span class="tag rassen-tag">'+tiny(ICO.seed)+p.rassen.length+' rassen</span>':'';
   return '<button class="pcard t-'+p.type+'" data-open="'+p.id+'">'
     +'<div class="top"><span class="gly">'+gicon(p.fam)+'</span><div><h3>'+p.naam+'</h3><div class="lat">'+p.lat+'</div></div></div>'
-    +miniCal(p)+'<div class="tags">'+locTag+'<span class="tag">'+TYPE_LABEL[p.type]+'</span></div></button>';
+    +miniCal(p)+'<div class="tags">'+locTag+'<span class="tag">'+TYPE_LABEL[p.type]+'</span>'+rasTag+'</div></button>';
 }
 function renderSoorten(){
   syncFilterUI();
@@ -246,6 +249,12 @@ function successieNote(p){
   if(!['sla','radijs','spinazie','andijvie'].includes(p.id))return '';
   return '<div class="tip-box" style="background:var(--sow-bg);margin-top:10px">'+tiny(ICO.repeat)+'<div><b>Successie-zaaien.</b> Zaai om de 2–3 weken een nieuwe rij '+p.naam.toLowerCase()+' voor een oogst die de hele zomer doorloopt.</div></div>';
 }
+function rassenBlock(p){
+  if(!p.rassen||!p.rassen.length)return '';
+  return '<div class="m-block"><h4>'+tiny(ICO.seed)+'Populaire rassen ('+p.rassen.length+')</h4><div class="rassen">'
+    +p.rassen.map(r=>'<div class="ras"><div class="ras-h"><span class="ras-n">'+r.naam+'</span><span class="ras-t">'+r.type+'</span></div><div class="ras-k">'+r.kort+'</div></div>').join('')
+    +'</div></div>';
+}
 function spacingCalc(p){
   if(!p.afstand)return '';
   const rij=p.rij||p.afstand;
@@ -301,6 +310,7 @@ function openDetail(id){
     +'<div class="tip-box">'+tiny(ICO.bulb)+'<div><b>Maatjestip.</b> '+p.tip+'</div></div>'
     +'<div class="care-box">'+tiny(ICO.hand)+'<div><b>Verzorging.</b> '+p.zorg+'</div></div>'
     +successieNote(p)
+    +rassenBlock(p)
     +spacingCalc(p)
     +'</div>'
     +'<div class="m-actions"><button class="btn" data-addplan="'+p.id+'">'+tiny(ICO.cal)+'Zet in mijn kalender</button></div>';
