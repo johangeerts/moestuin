@@ -243,6 +243,9 @@ table.calendar tbody tr:nth-child(even) .cal-name,table.calendar tbody tr:nth-ch
 .ras-t{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--good);
   background:var(--good-bg);border:1px solid #cfe0bb;padding:2px 8px;border-radius:999px}
 .ras-k{font-size:.85rem;color:var(--ink-soft);margin-top:4px;line-height:1.4}
+.ras-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.ras-tag{font-size:.7rem;font-weight:600;color:var(--ink-soft);background:var(--paper-2);
+  border:1px solid var(--line-2);padding:2px 8px;border-radius:999px}
 .calc{background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:13px 15px}.calc .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.92rem}
 .calc input{width:74px;padding:8px 10px;border:1.5px solid var(--line);background:var(--paper-2);border-radius:9px;text-align:center}
 .calc .res{margin-top:10px;font-size:.95rem}

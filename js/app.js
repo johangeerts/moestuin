@@ -252,7 +252,7 @@ function successieNote(p){
 function rassenBlock(p){
   if(!p.rassen||!p.rassen.length)return '';
   return '<div class="m-block"><h4>'+tiny(ICO.seed)+'Populaire rassen ('+p.rassen.length+')</h4><div class="rassen">'
-    +p.rassen.map(r=>'<div class="ras"><div class="ras-h"><span class="ras-n">'+r.naam+'</span><span class="ras-t">'+r.type+'</span></div><div class="ras-k">'+r.kort+'</div></div>').join('')
+    +p.rassen.map(r=>'<div class="ras"><div class="ras-h"><span class="ras-n">'+r.naam+'</span><span class="ras-t">'+r.type+'</span></div><div class="ras-k">'+r.kort+'</div>'+(r.tags&&r.tags.length?'<div class="ras-tags">'+r.tags.map(t=>'<span class="ras-tag">'+t+'</span>').join('')+'</div>':'')+'</div>').join('')
     +'</div></div>';
 }
 function spacingCalc(p){
